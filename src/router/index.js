@@ -9,4 +9,8 @@ const router = new Router({
   routes,
 })
 
+router.beforeEach(() => {
+
+});
+
 export default router;

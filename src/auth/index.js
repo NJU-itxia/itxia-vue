@@ -39,6 +39,10 @@ const logout = () => {
   });
 };
 
+const authCheck = () => {
+  
+};
+
 export default {
   staff,
   login,

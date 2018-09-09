@@ -13,6 +13,8 @@ import './mock';
 
 http.config(Vue);
 
+auth.checkAuth();
+
 sync(store, router);
 
 Vue.config.productionTip = false

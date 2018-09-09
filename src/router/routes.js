@@ -9,5 +9,5 @@ export default [
   {
     path: '/http',
     component: Http
-  },
+  }
 ]
