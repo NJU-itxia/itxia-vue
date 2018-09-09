@@ -13,7 +13,7 @@ import './mock';
 
 http.config(Vue);
 
-auth.checkAuth();
+auth.authCheck();
 
 sync(store, router);
 

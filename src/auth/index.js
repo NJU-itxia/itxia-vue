@@ -40,11 +40,12 @@ const logout = () => {
 };
 
 const authCheck = () => {
-  
+  console.log('authCheck...');
 };
 
 export default {
   staff,
   login,
   logout,
+  authCheck
 };
