@@ -11,13 +11,14 @@ import auth from './auth';
 
 import './mock';
 
+
 http.config(Vue);
 
 auth.authCheck();
 
 sync(store, router);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
@@ -26,4 +27,6 @@ new Vue({
   store,
   components: { App },
   template: '<App/>'
-})
+});
+
+

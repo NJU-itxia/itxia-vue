@@ -1,11 +1,13 @@
-import { SHOW_HEADER, HIDE_HEADER } from '../mutation-types';
+import {SHOW_HEADER, HIDE_HEADER, LOGIN, LOGOUT} from '../mutation-types';
 
 const state = {
-  showHeader: true
+  showHeader: true,
+  login: false
 };
 
 const getters = {
-  showHeader: state => state.showHeader
+  showHeader: state => state.showHeader,
+  login: state => state.login
 };
 
 const mutations = {
@@ -15,6 +17,14 @@ const mutations = {
 
   [HIDE_HEADER]: function (state) {
     state.showHeader = false;
+  },
+
+  [LOGIN]: function (state) {
+    state.login = true
+  },
+
+  [LOGOUT]: function (state) {
+    state.login = false
   }
 };
 
