@@ -12,7 +12,7 @@
         <div>
           <div class="input-group mb-3 my-form">
             <input type="text" class="form-control my-input" placeholder="请输入您的手机号" aria-label="Username">
-            <a href="#" class="btn btn-info my-button">发送验证码</a>
+            <button class="btn btn-info my-button" @click="sendCode" :disabled="isDisable">{{ message }}</button>
           </div>
           <div class="input-group mb-3 my-form">
             <input type="text" class="form-control my-input" placeholder="请输入验证码" aria-label="Username"
@@ -35,14 +35,35 @@
   export default {
     name: "UserIndex",
     methods: {
+      sendCode: function () {
+        this.time=60;
+        this.timer();
+        this.isDisable= true;
+      },
+      timer: function () {
+        if (this.time>0){
+          this. message= this.time+'s后重新获取';
+          this.time--;
+          setTimeout(this.timer,1000);
+        }else{
+          this.message='获取验证码';
+          this.isDisable= false;
+        }
+      },
       startAppointment: function () {
         this.$store.commit('LOGIN');
         this.$router.push('user/appointment');
       }
+    },
+    data() {
+      return {
+        message: '获取验证码',
+        time: 0,
+        isDisable: false
+      }
     }
   }
-
-
+  
 </script>
 
 <style scoped>
@@ -61,7 +82,7 @@
 
   .my-button {
     margin-left: 20px;
-    width: 100px;
+    width: auto;
   }
 
   .my-input {
