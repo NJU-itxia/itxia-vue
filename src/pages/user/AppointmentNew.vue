@@ -79,13 +79,13 @@
     <div class="form-group row">
       <label class="col-sm-2 left-label" for="devType">电脑型号：</label>
       <div class="col-sm-8">
-        <input id="devType" type="email" class="form-control"/>
+        <input id="devType" type="text" class="form-control"/>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 left-label" for="osType">操作系统：</label>
       <div class="col-sm-8">
-        <input id="osType" type="email" class="form-control"/>
+        <input id="osType" type="text" class="form-control"/>
       </div>
     </div>
     <div class="form-group row">
@@ -120,6 +120,7 @@
   .my-card {
     padding: 10px;
     font-size: 0.85em;
+    margin-bottom: 10px;
   }
 
   .left-label {
