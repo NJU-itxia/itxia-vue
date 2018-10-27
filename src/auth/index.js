@@ -1,6 +1,6 @@
 import router from '../router';
 import http from '../http';
-import { POST } from '../utils/value-consts';
+import {POST} from '../utils/value-consts';
 
 const LOGIN_URL = '/';
 const LOGOUT_URL = '/';

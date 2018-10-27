@@ -14,10 +14,10 @@
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <form class="form-inline my-2 my-lg-0" v-if="!$store.getters.login">
-          <a type="button" class="btn btn-info nav-link" href="https://itxia.club/recruiment" target="_blank" id="join-us">加入我们</a>
+          <button type="button" class="btn btn-info nav-link" href="https://itxia.club/recruiment" target="_blank" id="join-us">加入我们</button>
         </form>
         <form class="form-inline my-2 my-lg-0" v-if="!$store.getters.login">
-          <a type="button" class="btn btn-info nav-link" href="https://itxia.club/donation" target="_blank" v-if="!$store.getters.login">爱心捐赠</a>
+          <button type="button" class="btn btn-info nav-link" href="https://itxia.club/donation" target="_blank" v-if="!$store.getters.login">爱心捐赠</button>
         </form>
         <button type="button" class="btn btn-info" v-if="$store.getters.login" @click="logout">登出</button>
       </div>
