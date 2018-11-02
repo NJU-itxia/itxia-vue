@@ -6,11 +6,15 @@
           <span>{{ ap.description }}</span>
         </div>
         <hr/>
-        <div class="card-body">
-          <span class="btn btn-primary">{{ap.degree}}</span>
+        <div class="card-columns">
+          <span class="my-span text-center m-3 text-primary">{{ap.degree}}</span>
+          症状：
+          <span v-for="tag in ap.feature" class="badge badge-secondary mb-1">{{tag}}</span>
         </div>
-        <div v-for="tag in ap.feature">
-          <span class="badge badge-secondary">{{tag}}</span>
+        <div class="card-footer" v-if="$store.getters.login">
+          <input type="button" value="处理结束" class="btn btn-outline-success btn-sm"/>
+          <input type="button" value="放回" class="btn btn-outline-danger btn-sm"/>
+          <input type="button" value="维修建议" class="btn btn-outline-warning my-button btn-sm"/>
         </div>
       </div>
     </div>
@@ -126,5 +130,13 @@
 
   .my-card:not(:first-child) {
     padding-top: 10px;
+  }
+
+  .my-span {
+    margin-right: 3rem !important;
+  }
+
+  .my-button {
+    float: right;
   }
 </style>

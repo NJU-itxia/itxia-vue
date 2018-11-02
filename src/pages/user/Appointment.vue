@@ -6,9 +6,9 @@
           <router-link to="#" class="list-group-item list-group-item-secondary">
             导航栏
           </router-link>
-          <div class="list-group-item" @click="switchToNew">当前预约</div>
-          <div class="list-group-item" @click="switchToHistory">历史预约
-            <span class="badge badge-secondary">23</span></div>
+          <button type="button" class="list-group-item" @click="switchToNew">当前预约</button>
+          <button type="button" class="list-group-item" @click="switchToHistory">历史预约
+            <span class="badge badge-secondary">23</span></button>
         </div>
       </div>
 
