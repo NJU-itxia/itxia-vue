@@ -8,7 +8,9 @@ import router from './router';
 import store from './store';
 import http from './http';
 import auth from './auth';
-
+import axios from 'axios';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+Vue.prototype.$axios = axios;
 import './mock';
 
 
