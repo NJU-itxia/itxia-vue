@@ -25,7 +25,7 @@
 
       <div class="col-md-8">
         <div v-for="o in orders">
-          <div :class="panel" @mouseenter="mouseEnter">
+          <div class="panel panel-warning">
             <div class="panel-heading">
               <p>{{o.customer}}</p>
               <hr/>
@@ -119,16 +119,6 @@
     methods: {
       sleep(d) {
         return new Promise((resolve) => setTimeout(resolve, d))
-      },
-      mouseEnter() {
-        if (!this.mutex) {
-          this.mutex = true;
-          this.panel = ["panel", "panel-warning", "panel-animation"];
-          this.sleep(1500).then(() => {
-            this.panel = this.panel.slice(0, 2);
-            this.mutex = false;
-          })
-        }
       },
       showCreated() {
         this.state = "CREATED";
