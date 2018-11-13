@@ -10,8 +10,8 @@ import http from './http';
 import auth from './auth';
 import axios from 'axios';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.withCredentials = true;
 Vue.prototype.$axios = axios;
-import './mock';
 
 
 http.config(Vue);

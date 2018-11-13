@@ -15,6 +15,10 @@
 </script>
 
 <style>
+  ::selection {
+    color: #ffb1ae;
+  }
+
   #app {
     display: flex;
     min-height: 100vh;

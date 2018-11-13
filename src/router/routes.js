@@ -5,6 +5,7 @@ import Appointment from '@/pages/user/Appointment';
 import ItxiaLogin from '@/pages/admin/ItxiaLogin';
 import AdminIndex from '@/pages/admin/AdminIndex';
 import Knightlogin from '@/pages/knight/Knightlogin';
+import Lab from '@/components/Lab';
 
 export default [
   {
@@ -39,5 +40,10 @@ export default [
     path: '/knightlogin',
     component: Knightlogin,
     name: '登录入口',
+  },
+  {
+    path: '/egg/lab',
+    component: Lab,
+    name: '彩蛋测试'
   }
 ]

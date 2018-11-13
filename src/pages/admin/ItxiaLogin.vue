@@ -30,12 +30,12 @@
           </div>
           <div class="col-9 my-input">
             <label>
-              <input class="form-control" type="password" v-model="password"/>
+              <input class="form-control" type="password" v-model="password" @keyup.enter="login"/>
             </label>
           </div>
         </div>
         <div class="login-button">
-          <button class="btn btn-primary btn-block" @click="login">登陆</button>
+          <button class="btn btn-primary btn-block" @click="login">登录</button>
         </div>
       </div>
       <hr/>
@@ -53,7 +53,8 @@
 
 <script>
   import axios from 'axios';
-  const host = "http://118.89.144.139:3000";
+
+  const host = "http://localhost:3000";
 
   export default {
     name: "AdminLogin",
@@ -71,7 +72,7 @@
           password: this.password
         };
         this.$axios.post(
-          host+ '/admin/login',
+          host + '/admin/login',
           JSON.stringify(params)
         ).then((res) => {
           if (res.data.success) {
@@ -89,21 +90,12 @@
 </script>
 
 <style scoped>
-  ::selection {
-    color: #ffb1ae;
-  }
 
   .alert {
     position: fixed;
     top: 20px;
     right: 10px;
   }
-
-  /*@media (min-width: 1200px) {*/
-    /*.alert {*/
-      /*right: ;*/
-    /*}*/
-  /*}*/
 
   .login-button {
     margin-top: 10px;
@@ -114,6 +106,7 @@
     justify-content: center;
     align-items: center;
     padding: 0;
+    color: #5e5e5e;
   }
 
   .text p {
@@ -165,8 +158,13 @@
   }
 
   .logo {
-    margin-top: 40px;
+    margin-top: 30px;
     display: inline-block;
+    transition: transform 2s ease-in 3s;
+  }
+
+  .logo:hover {
+    transform: rotate(360deg) scale(0.77777, 0.77777);
   }
 
   h1 {
@@ -192,6 +190,7 @@
     margin-top: -10px;
     height: 20%;
     font-size: 14px;
+    color: #5e5e5e;
   }
 
   .my-card {

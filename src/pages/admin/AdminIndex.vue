@@ -2,245 +2,86 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-        <div class="list-group">
-          <a href="#" class="list-group-item"><span class="number">5</span>
-            <p><strong>等待处理</strong></p></a> <a
-          href="#" class="list-group-item"><span class="number">32</span>
-          <p><strong>正在处理</strong></p></a> <a href="#"
-                             class="list-group-item"><span
-          class="number">2568</span>
-          <p><strong>处理完成</strong></p></a>
+        <div class="side-div">
+          <div class="list-group">
+            <span class="list-group-item" @click="showCreated"><span class="number">5</span>
+              <p :class="textSelected[0]"><strong>等待处理</strong></p></span>
+            <span class="list-group-item" @click="showAccepted"><span class="number">32</span>
+              <p :class="textSelected[1]"><strong>正在处理</strong></p></span>
+            <span class="list-group-item" @click="showFinished"><span class="number">2568</span>
+              <p :class="textSelected[2]"><strong>处理完成</strong></p></span>
+          </div>
+
+          <div class="side-div search-div">
+            <label class="search-input">
+              <input class="form-control" placeholder="搜索问题描述..." @keyup.enter="searchDescription" v-model="search"
+                     type="text"/>
+            </label>
+            <img @click="searchDescription" class="search-svg" src="../../assets/search.svg"
+                 alt="Card image cap"/>
+          </div>
         </div>
       </div>
 
       <div class="col-md-8">
-        <div class="panel panel-warning" id="6502">
-          <div class="panel-heading">
-            <p>杨佳晔</p>
-            <hr/>
-          </div>
-          <div class="panel-body">
-            <p>
-              <strong>校区: </strong>鼓楼
-            </p>
-            <p>
-              <strong>提交时间: </strong>2018-06-27 13:42:51
-            </p>
-            <p>
-              <strong>手机号码: </strong><a href="tel:17826029500">17826029500</a>
-            </p>
-            <p>
-              <strong>邮箱: </strong>354641475@qq.com
-            </p>
-            <p>
-              <strong>电脑型号: </strong><a target="_blank" href="http://www.baidu.com/s?word=Dell Precision T7600+拆机图">Dell
-              Precision T7600</a>
-            </p>
-            <p>
-              <strong>操作系统: </strong>windows server 2012
-            </p>
-            <p>
-              <strong>问题描述: </strong>办公室有一次突然断电之后，电脑开不了机。目前检查了一下 发现内存条没有问题。启动电源后，机箱风扇，CPU风扇正常运转。显示屏上显示“Non-RAID Disk(s)
-              found on the host adapter” "Non-RAID Disk(s) handled by BIOS"
-            </p>
-
-            <button id="6502" type="button" class="btn btn-info btn-sm workbtn">我来处理</button>
-            <button type="button" class="btn btn-default btn-sm replybtn">展开回复信息(1)</button>
-
-            <div class="reply" v-show="false">
-              <br>
-              <textarea class="form-control content" name="content" rows="3" placeholder="点击回复..."></textarea>
-              <input type="text" class="order" name="order" value="6502" style="display: none">
-              <br>
-              <button class="subbtn btn btn-sm btn-primary">回复</button>
+        <div v-for="o in orders">
+          <div :class="panel" @mouseenter="mouseEnter">
+            <div class="panel-heading">
+              <p>{{o.customer}}</p>
+              <hr/>
             </div>
+            <div class="panel-body">
+              <p>
+                <strong>校区: </strong>{{ o.location }}
+              </p>
+              <p>
+                <strong>提交时间: </strong>{{ o.time }}
+              </p>
+              <p>
+                <strong>手机号码: </strong><a href="tel:17826029500">{{ o.phone }}</a>
+              </p>
+              <p>
+                <strong>邮箱: </strong>{{ o.email }}
+              </p>
+              <p>
+                <strong>电脑型号: </strong><a target="_blank" href="http://www.baidu.com/s?word=Dell Precision T7600+拆机图">
+                {{o.deviceModel}}</a>
+              </p>
+              <p>
+                <strong>操作系统: </strong>{{o.osVersion}}
+              </p>
+              <p>
+                <strong>问题描述: </strong>{{ o.problemDescription }}
+              </p>
 
-            <hr />
+              <button type="button" class="btn btn-info btn-sm workbtn">我来处理</button>
+              <button type="button" class="btn btn-default btn-sm replybtn">展开回复信息(1)</button>
 
-            <div class="labels-div">
-              <span class="badge">无法开机</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel panel-warning" id="6532">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <a target="_blank" href="http://browse.renren.com/s/all?from=opensearch&amp;q=张思盼 南京大学">张思盼</a>
-            </h3>
-          </div>
-          <div class="panel-body">
-            <p>
-              <strong>校区: </strong>鼓楼
-            </p>
-            <p>
-              <strong>提交时间: </strong>2018-07-24 17:15:00
-            </p>
-            <p>
-              <strong>手机号码: </strong><a href="tel:13851779634">13851779634</a>
-            </p>
-            <p>
-              <strong>邮箱: </strong>archerc@126.com
-            </p>
-            <p>
-              <strong>电脑型号: </strong><a target="_blank"
-                                        href="http://www.baidu.com/s?word=宏基aspire R14 R5-471T-52EE+拆机图">宏基aspire R14
-              R5-471T-52EE</a>
-            </p>
-            <p>
-              <strong>操作系统: </strong>win10-64位
-            </p>
-            <p>
-              <strong>问题描述: </strong>电脑直接合上待机后主板电源灯灭掉，持续半天整个机器没有电。之前修过一次是电容损坏，换了电容，过了7个月又坏了。
-              <br>需要硬件帮助
-            </p>
-
-            <button id="6532" type="button" class="btn btn-info workbtn">我来处理</button>
-            <button type="button" class="btn btn-default replybtn">展开回复信息(0)</button>
-
-            <div class="reply">
-              <br>
-              <textarea class="form-control content" name="content" rows="3" placeholder="点击回复..."></textarea>
-              <input type="text" class="order" name="order" value="6532" style="display: none">
-              <br>
-              <button class="subbtn btn btn-block btn-primary">回复</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel panel-warning" id="6549">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <a target="_blank" href="http://browse.renren.com/s/all?from=opensearch&amp;q=王春程 南京大学">王春程</a>
-            </h3>
-          </div>
-          <div class="panel-body">
-            <p>
-              <strong>校区: </strong>鼓楼
-            </p>
-            <p>
-              <strong>提交时间: </strong>2018-08-27 20:07:08
-            </p>
-            <p>
-              <strong>手机号码: </strong><a href="tel:15952437966">15952437966</a>
-            </p>
-            <p>
-              <strong>邮箱: </strong>503910869@qq.com
-            </p>
-            <p>
-              <strong>电脑型号: </strong><a target="_blank" href="http://www.baidu.com/s?word=thinkpad-440p+拆机图">thinkpad-440p</a>
-            </p>
-            <p>
-              <strong>操作系统: </strong>win8-32
-            </p>
-            <p>
-              <strong>问题描述: </strong>电脑有时会自动重启或自动关机
-            </p>
-
-            <button id="6549" type="button" class="btn btn-info workbtn">我来处理</button>
-            <button type="button" class="btn btn-default replybtn">展开回复信息(0)</button>
-
-            <div class="reply">
-              <br>
-              <textarea class="form-control content" name="content" rows="3" placeholder="点击回复..."></textarea>
-              <input type="text" class="order" name="order" value="6549" style="display: none">
-              <br>
-              <button class="subbtn btn btn-block btn-primary">回复</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel panel-warning" id="6671">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <a target="_blank" href="http://browse.renren.com/s/all?from=opensearch&amp;q=王世杰 南京大学">王世杰</a>
-            </h3>
-          </div>
-          <div class="panel-body">
-            <p>
-              <strong>校区: </strong>鼓楼
-            </p>
-            <p>
-              <strong>提交时间: </strong>2018-09-26 13:30:54
-            </p>
-            <p>
-              <strong>手机号码: </strong><a href="tel:15850759189">15850759189</a>
-            </p>
-            <p>
-              <strong>邮箱: </strong>wangshijiejay@gmail.com
-            </p>
-            <p>
-              <strong>电脑型号: </strong><a target="_blank"
-                                        href="http://www.baidu.com/s?word=组装台式机主板z170-ar cpu6700k 显卡gtx-1080+拆机图">组装台式机主板z170-ar
-              cpu6700k 显卡gtx-1080</a>
-            </p>
-            <p>
-              <strong>操作系统: </strong>win10-64位
-            </p>
-            <p>
-              <strong>问题描述: </strong>电脑睡眠唤醒后USB不可用，通过USB连接的蓝牙模块也无法正常工作，有驱动的USB鼠标亦无法正常工作。断电重启后既恢复正常。电脑装了黑苹果双系统，在mac下亦有此问题，曾经编辑修改过USB不知道和这个有没有关系。因为每次重启后都正常，应该不是硬件不兼容问题，需要软件帮助。非常感谢！
-            </p>
-
-            <button id="6671" type="button" class="btn btn-info workbtn">我来处理</button>
-            <button type="button" class="btn btn-default replybtn">展开回复信息(0)</button>
-
-            <div class="reply">
-              <br>
-              <textarea class="form-control content" name="content" rows="3" placeholder="点击回复..."></textarea>
-              <input type="text" class="order" name="order" value="6671" style="display: none">
-              <br>
-              <button class="subbtn btn btn-block btn-primary">回复</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel panel-warning" id="6828">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <a target="_blank" href="http://browse.renren.com/s/all?from=opensearch&amp;q=周吴 南京大学">周吴</a>
-            </h3>
-          </div>
-          <div class="panel-body">
-            <p>
-              <strong>校区: </strong>鼓楼
-            </p>
-            <p>
-              <strong>提交时间: </strong>2018-11-01 20:12:57
-            </p>
-            <p>
-              <strong>手机号码: </strong><a href="tel:17621905767">17621905767</a>
-            </p>
-            <p>
-              <strong>邮箱: </strong>1141366459@qq.com
-            </p>
-            <p>
-              <strong>电脑型号: </strong><a target="_blank" href="http://www.baidu.com/s?word=华硕x550c+拆机图">华硕x550c</a>
-            </p>
-            <p>
-              <strong>操作系统: </strong>win 10
-            </p>
-            <p>
-              <strong>问题描述: </strong>电脑进水之后未能直接关机，在操作关闭啊文档之后，电脑黑屏，随后拆开电池，擦水吹风
-            </p>
-
-            <button id="6828" type="button" class="btn btn-info btn-sm workbtn">我来处理</button>
-            <button type="button" class="btn btn-default btn-sm replybtn">展开回复信息(0)</button>
-
-            <div class="reply" v-show="false">
-              <br>
-              <textarea class="form-control content" name="content" rows="3" placeholder="点击回复..."></textarea>
-              <label>
-                <input type="text" class="order" name="order" value="6828" style="display: none">
-              </label>
-              <br>
-              <div class="subbtn-div">
+              <div class="reply" v-show="false">
+                <br>
+                <textarea class="form-control content" name="content" rows="3" placeholder="点击回复..."></textarea>
+                <label>
+                  <input type="text" class="order" name="order" value="6502" style="display: none">
+                </label>
+                <br>
                 <button class="subbtn btn btn-sm btn-primary">回复</button>
               </div>
-            </div>
 
+              <hr/>
+
+              <div class="labels-div">
+                <span class="badge">无法开机</span>
+              </div>
+            </div>
           </div>
         </div>
 
+        <div class="pagination">
+          <span class="page-number"><</span>
+          <span class="page-number page-number-selected">1</span>
+          <span class="page-number">2</span>
+          <span class="page-number">></span>
+        </div>
       </div>
     </div>
   </div>
@@ -249,20 +90,116 @@
 <script>
   import NavBar from "../../pages/nav/NavBar";
 
+  const host = "http://localhost:3000";
+
   export default {
     name: "AdminIndex",
-    components: {NavBar}
+    components: {NavBar},
+    data() {
+      return {
+        panel: ["panel", "panel-warning"],
+        mutex: false,
+        location: "鼓楼",
+        state: "CREATED",
+        textSelected: ["text-selected", "", ""],
+        orders: [],
+        search: null,
+      }
+    },
+    mounted() {
+      this.showCreated();
+    },
+    watch: {
+      search(newValue) {
+        if (newValue === "") {
+          this.queryAppointments();
+        }
+      }
+    },
+    methods: {
+      sleep(d) {
+        return new Promise((resolve) => setTimeout(resolve, d))
+      },
+      mouseEnter() {
+        if (!this.mutex) {
+          this.mutex = true;
+          this.panel = ["panel", "panel-warning", "panel-animation"];
+          this.sleep(1500).then(() => {
+            this.panel = this.panel.slice(0, 2);
+            this.mutex = false;
+          })
+        }
+      },
+      showCreated() {
+        this.state = "CREATED";
+        this.queryAppointments();
+        this.textSelected = ["text-selected", "", ""]
+      },
+      showAccepted() {
+        this.state = "ACCEPTED";
+        this.queryAppointments();
+        this.textSelected = ["", "text-selected", ""]
+      },
+      showFinished() {
+        this.state = "FINISHED";
+        this.queryAppointments();
+        this.textSelected = ["", "", "text-selected"]
+      },
+      queryAppointments() {
+        if (this.search === "") {
+          this.search = null
+        }
+        this.$axios.post(
+          host + "/admin/appointment/location/" + this.location + "/state/" + this.state + "/search/" + this.search + "/page/0/size/10",
+          JSON.stringify({})
+        ).then((res) => {
+          if (res.data.success) {
+            this.orders = res.data.data.content;
+          }
+        });
+      },
+      searchDescription() {
+        this.queryAppointments()
+      }
+    }
   }
 </script>
 
 <style scoped>
-  ::selection {
-    color: #ffb1ae;
+  @keyframes reverse {
+    0% {
+      background-color: #fff;
+    }
+    20% {
+      background-color: rgb(249, 255, 223);
+    }
+    100% {
+      background-color: #fff;
+    }
+  }
+
+  .search-svg {
+    float: right;
+    cursor: pointer;
+    max-width: 25px;
+    max-height: 25px;
+  }
+
+  .panel-animation {
+    animation: reverse 1.5s;
   }
 
   strong {
     color: #5e5e5e;
     margin-right: 3px;
+  }
+
+  .search-svg {
+    border: 1px solid transparent;
+  }
+
+  .search-svg:hover {
+    border: none;
   }
 
   textarea:focus {
@@ -289,11 +226,19 @@
     padding-bottom: 20px;
   }
 
-  .list-group, .panel {
+  .list-group, .panel, .search-div {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12),
     0 3px 1px -2px rgba(0, 0, 0, 0.06),
     0 1px 5px 0 rgba(0, 0, 0, 0.12),
     0 -1px 0.5px 0 rgba(0, 0, 0, 0.09);
+  }
+
+  .search-div {
+    display: flex;
+    background-color: #fff;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    align-items: center;
   }
 
   .list-group {
@@ -303,14 +248,14 @@
   }
 
   @media (min-width: 1200px) {
-    .list-group {
+    .side-div {
       position: fixed;
       width: 240px;
     }
   }
 
   @media (min-width: 768px) and (max-width: 992px) {
-    .list-group {
+    .side-div {
       position: fixed;
       width: 160px;
     }
@@ -374,10 +319,16 @@
     margin: 0;
     padding-top: 7px;
     padding-bottom: 7px;
+    transition: background-color 0.5s;
+  }
+
+  .page-number:hover {
+    border-bottom: 1px solid #5e5e5e;
   }
 
   .list-group-item:hover {
-    background-color: rgba(235, 235, 235, 0.55);
+    cursor: pointer;
+    background-color: rgb(249, 255, 223);
   }
 
   .list-group-item p {
@@ -385,13 +336,59 @@
     float: left;
   }
 
+  input {
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+  }
+
+  input.form-control:focus {
+    box-shadow: none;
+  }
+
+  input.form-control.bottom:focus {
+    box-shadow: 0 0 2px #0069d9;
+  }
+
   .number {
     font-size: 12px;
     margin-top: 3px;
     float: right;
     padding: 0 .4rem;
-    background-color: #777;
+    background-color: #898989;
     color: #fff;
     border-radius: 10px;
+  }
+
+  .search-input {
+    display: flex;
+    flex: 1;
+  }
+
+  .text-selected {
+    border-bottom: 1px solid #5e5e5e;
+  }
+
+  .page-number-selected {
+    cursor: default !important;
+    background-color: rgba(204, 204, 204, 0.56);
+  }
+
+  .page-number {
+    cursor: pointer;
+    padding: 4px 14px;
+    margin: 0 3px;
+    border-bottom: 1px solid rgba(212, 211, 226, 0.05);
+  }
+
+  .pagination {
+    margin: 0 0 20px 0;
+    border-top: initial;
+    background: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 -1px 0.5px 0 rgba(0, 0, 0, 0.09);
+    border-radius: initial;
+    padding: 10px 0 10px;
+    display: flex;
+    justify-content: center;
   }
 </style>
