@@ -261,6 +261,14 @@
     }
   }
 
+  input.form-control::placeholder {
+    font-size: 15px;
+  }
+
+  input.form-control {
+    font-size: 15px;
+  }
+
   .panel {
     margin-bottom: 20px;
     padding-bottom: 20px;
@@ -273,7 +281,6 @@
   }
 
   .badge {
-    /*background-color: #777;*/
     color: #74cbff;
     border: 1px solid #74cbff;
     border-radius: 10px;
