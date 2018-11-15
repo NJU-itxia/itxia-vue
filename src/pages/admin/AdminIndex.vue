@@ -41,7 +41,7 @@
                 <strong>手机号码: </strong><a href="tel:17826029500">{{ o.phone }}</a>
               </p>
               <p>
-                <strong>邮箱: </strong>{{ o.email }}
+                <strong>邮箱: </strong>{{ o.email === null? "无":o.email }}
               </p>
               <p>
                 <strong>电脑型号: </strong><a target="_blank" href="http://www.baidu.com/s?word=Dell Precision T7600+拆机图">
