@@ -76,11 +76,21 @@
           </div>
         </div>
 
-        <div class="pagination">
-          <span class="page-number"><</span>
-          <span class="page-number page-number-selected">1</span>
-          <span class="page-number">2</span>
-          <span class="page-number">></span>
+        <div class="pagination" v-show="pageNum != null && pageNum > 1">
+          <span class="page-number-img" @click="firstPage" v-if="!pages.includes(0)">
+            <img src="../../assets/first.svg" class="page-img">
+          </span>
+          <span class="page-number-img" @click="previousPage" v-if="pageSelected !== 0">
+            <img src="../../assets/prev.svg" class="page-img">
+          </span>
+          <span v-for="p in pages" @click="switchPage(p)"
+                :class="['page-number', {'page-number-selected': pageSelected===p}]">{{ p + 1 }}</span>
+          <span class="page-number-img" @click="nextPage" v-if="pageSelected !== pageNum - 1">
+            <img src="../../assets/next.svg" class="page-img">
+          </span>
+          <span class="page-number-img" @click="lastPage" v-if="!pages.includes(pageNum-1)">
+            <img src="../../assets/last.svg" class="page-img">
+          </span>
         </div>
       </div>
     </div>
@@ -104,6 +114,9 @@
         textSelected: ["text-selected", "", ""],
         orders: [],
         search: null,
+        pageNum: null,
+        pageSelected: 0,
+        pages: [],
       }
     },
     mounted() {
@@ -122,16 +135,22 @@
       },
       showCreated() {
         this.state = "CREATED";
+        this.pageSelected = 0;
+        this.search = "";
         this.queryAppointments();
         this.textSelected = ["text-selected", "", ""]
       },
       showAccepted() {
         this.state = "ACCEPTED";
+        this.pageSelected = 0;
+        this.search = "";
         this.queryAppointments();
         this.textSelected = ["", "text-selected", ""]
       },
       showFinished() {
         this.state = "FINISHED";
+        this.pageSelected = 0;
+        this.search = "";
         this.queryAppointments();
         this.textSelected = ["", "", "text-selected"]
       },
@@ -140,16 +159,48 @@
           this.search = null
         }
         this.$axios.post(
-          host + "/admin/appointment/location/" + this.location + "/state/" + this.state + "/search/" + this.search + "/page/0/size/10",
+          host + "/admin/appointment/location/" + this.location + "/state/" + this.state + "/search/" + this.search + "/page/" + this.pageSelected + "/size/10",
           JSON.stringify({})
         ).then((res) => {
           if (res.data.success) {
             this.orders = res.data.data.content;
+            this.pageNum = res.data.data.totalPages;
+            if (this.pageNum <= 5) {
+              this.pages = [...Array(this.pageNum)].map((_, h) => h);
+            } else if (this.pageSelected < 3) {
+              this.pages = [...Array(5)].map((_, h) => h);
+            } else if (this.pageSelected > this.pageNum - 3) {
+              this.pages = [...Array(5)].map((_, h) => h + this.pageNum - 5);
+            } else {
+              this.pages = [...Array(5)].map((_, h) => h + this.pageSelected - 2);
+            }
           }
         });
       },
       searchDescription() {
         this.queryAppointments()
+      },
+      switchPage(page) {
+        this.pageSelected = page;
+        this.queryAppointments();
+      },
+      nextPage() {
+        if (this.pageSelected === this.pageNum - 1) {
+          return
+        }
+        this.switchPage(this.pageSelected + 1)
+      },
+      previousPage() {
+        if (this.pageSelected === 0) {
+          return
+        }
+        this.switchPage(this.pageSelected - 1)
+      },
+      firstPage() {
+        this.switchPage(0)
+      },
+      lastPage() {
+        this.switchPage(this.pageNum - 1)
       }
     }
   }
@@ -319,7 +370,7 @@
     transition: background-color 0.5s;
   }
 
-  .page-number:hover {
+  .page-number:hover, .page-number-img:hover {
     border-bottom: 1px solid #5e5e5e;
   }
 
@@ -371,9 +422,21 @@
     background-color: rgba(204, 204, 204, 0.56);
   }
 
+  .page-img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .page-number-img {
+    cursor: pointer;
+    padding: 2px 0 0 0;
+    margin: 0 3px;
+    border-bottom: 1px solid rgba(212, 211, 226, 0.05);
+  }
+
   .page-number {
     cursor: pointer;
-    padding: 4px 14px;
+    padding: 4px 12px;
     margin: 0 3px;
     border-bottom: 1px solid rgba(212, 211, 226, 0.05);
   }
