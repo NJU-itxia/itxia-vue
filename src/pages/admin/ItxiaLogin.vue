@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  const host = "http://localhost:3000";
+  const host = "http://118.89.144.139:3000";
 
   export default {
     name: "AdminLogin",
