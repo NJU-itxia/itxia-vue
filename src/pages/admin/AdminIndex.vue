@@ -63,12 +63,13 @@
                 <ReplyPane v-for="r in o.replyList" :content="r.content" :time="r.replyTime" :itxia-reply="r.itxiaReply"
                            :user-name="r.itxiaReply?r.itxiaName:o.customer"></ReplyPane>
                 <br>
-                <textarea class="form-control content" name="content" rows="3" placeholder="点击回复..."></textarea>
+                <textarea class="form-control content" name="content" rows="3" placeholder="点击回复..."
+                          v-model="o.newReply"></textarea>
                 <label>
                   <input type="text" class="order" name="order" value="6502" style="display: none">
                 </label>
                 <br>
-                <button class="subbtn btn btn-sm btn-primary">回复</button>
+                <button class="subbtn btn btn-sm btn-primary" @click="createNewReply(o)">回复</button>
               </div>
 
               <hr/>
@@ -168,6 +169,9 @@
         ).then((res) => {
           if (res.data.success) {
             this.orders = res.data.data.content;
+            this.orders.forEach((o) => {
+              o.newReply = ""
+            });
             this.pageNum = res.data.data.totalPages;
             if (this.pageNum <= 5) {
               this.pages = [...Array(this.pageNum)].map((_, h) => h);
@@ -180,6 +184,13 @@
             }
           }
         });
+      },
+      createNewReply(order) {
+        this.$axios.put(
+          host + "/admin/appointment/reply/" + order.id + "/" + order.newReply
+        ).then((res) => {
+          alert(res)
+        })
       },
       searchDescription() {
         this.queryAppointments()

@@ -28,7 +28,7 @@
     padding: 2px 8px;
     border-radius: 15px;
     margin-top: 10px;
-    background-color: #e4ffc8;
+    background-color: rgba(218, 223, 221, 0.26);
   }
 
   .reply-title {
