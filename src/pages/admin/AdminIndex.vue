@@ -55,9 +55,13 @@
               </p>
 
               <button type="button" class="btn btn-info btn-sm workbtn">我来处理</button>
-              <button type="button" class="btn btn-default btn-sm replybtn">展开回复信息(1)</button>
+              <button type="button" class="btn btn-default btn-sm replybtn" data-toggle="collapse"
+                      :data-target="'#reply' + o.id">展开回复信息{{ o.replyList.length>0?'(' + o.replyList.length + ')':'' }}
+              </button>
 
-              <div class="reply" v-show="false">
+              <div :id="'reply' + o.id" class="panel-collapse collapse">
+                <ReplyPane v-for="r in o.replyList" :content="r.content" :time="r.replyTime" :itxia-reply="r.itxiaReply"
+                           :user-name="r.itxiaReply?r.itxiaName:o.customer"></ReplyPane>
                 <br>
                 <textarea class="form-control content" name="content" rows="3" placeholder="点击回复..."></textarea>
                 <label>
@@ -98,13 +102,13 @@
 </template>
 
 <script>
-  import NavBar from "../../pages/nav/NavBar";
+  import ReplyPane from "../../components/ReplyPane"
 
   const host = "http://118.89.144.139:3000";
 
   export default {
     name: "AdminIndex",
-    components: {NavBar},
+    components: {ReplyPane},
     data() {
       return {
         panel: ["panel", "panel-warning"],
