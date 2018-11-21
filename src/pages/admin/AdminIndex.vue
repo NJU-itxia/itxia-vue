@@ -189,7 +189,13 @@
         this.$axios.put(
           host + "/admin/appointment/reply/" + order.id + "/" + order.newReply
         ).then((res) => {
-          alert(res)
+          if (res.status === 200) {
+            if (res.data.success) {
+              this.queryAppointments();
+              return
+            }
+          }
+          alert("似乎失败了，等下再试试吧")
         })
       },
       searchDescription() {
