@@ -14,7 +14,7 @@
 
           <div class="side-div search-div">
             <label class="search-input">
-              <input class="form-control" placeholder="搜索问题描述..." @keyup.enter="searchDescription" v-model="search"
+              <input class="form-control" placeholder="请输入搜索内容..." @keyup.enter="searchDescription" v-model="search"
                      type="text"/>
             </label>
             <img @click="searchDescription" class="search-svg" src="../../assets/search.svg"
@@ -24,6 +24,13 @@
       </div>
 
       <div class="col-md-8">
+        <div v-show="orders.length === 0">
+          <div class="panel panel-warning">
+            <div class="panel-not-found">
+              <p class="no-found-text"><strong>非常遗憾，什么也没有搜索出来</strong></p>
+            </div>
+          </div>
+        </div>
         <div v-for="o in orders">
           <div class="panel panel-warning">
             <div class="panel-heading">
@@ -69,13 +76,13 @@
                   <input type="text" class="order" name="order" value="6502" style="display: none">
                 </label>
                 <br>
-                <button class="subbtn btn btn-sm btn-primary" @click="createNewReply(o)">回复</button>
+                <button class="subbtn btn btn-sm workbtn" @click="createNewReply(o)">回复</button>
               </div>
 
               <hr/>
 
               <div class="labels-div">
-                <span class="badge">无法开机</span>
+                <span class="badge">标签功能开发中...</span>
               </div>
             </div>
           </div>
@@ -141,21 +148,18 @@
       showCreated() {
         this.state = "CREATED";
         this.pageSelected = 0;
-        this.search = "";
         this.queryAppointments();
         this.textSelected = ["text-selected", "", ""]
       },
       showAccepted() {
         this.state = "ACCEPTED";
         this.pageSelected = 0;
-        this.search = "";
         this.queryAppointments();
         this.textSelected = ["", "text-selected", ""]
       },
       showFinished() {
         this.state = "FINISHED";
         this.pageSelected = 0;
-        this.search = "";
         this.queryAppointments();
         this.textSelected = ["", "", "text-selected"]
       },
@@ -199,6 +203,9 @@
         })
       },
       searchDescription() {
+        if (this.search === undefined || this.search.length === 0) {
+          return
+        }
         this.queryAppointments()
       },
       switchPage(page) {
@@ -266,10 +273,18 @@
 
   textarea:focus {
     box-shadow: none;
+    border: 1px solid #70AE95;
+  }
+
+  .workbtn {
+    background-color: #70AE95;
+    border: none;
+    color: white;
+
   }
 
   .container {
-    padding-top: 20px;
+    padding-top: 80px;
   }
 
   .subbtn {
@@ -281,7 +296,7 @@
   }
 
   button:focus {
-    box-shadow: 0 0 2px #0069d9;
+    box-shadow: 0 0 2px #57a94e;
   }
 
   .reply {
@@ -339,12 +354,12 @@
   }
 
   a {
-    color: #74cbff;
+    color: #70AE95;
   }
 
   .badge {
-    color: #74cbff;
-    border: 1px solid #74cbff;
+    color: #70AE95;
+    border: 1px solid #70AE95;
     border-radius: 10px;
   }
 
@@ -397,7 +412,7 @@
 
   .list-group-item:hover {
     cursor: pointer;
-    background-color: rgb(249, 255, 223);
+    background-color: #CBD6AE;
   }
 
   .list-group-item p {
@@ -413,10 +428,11 @@
 
   input.form-control:focus {
     box-shadow: none;
+    border-color: #70AE95;
   }
 
   input.form-control.bottom:focus {
-    box-shadow: 0 0 2px #0069d9;
+    box-shadow: 0 0 1px #70AE95;
   }
 
   .number {
@@ -424,7 +440,7 @@
     margin-top: 3px;
     float: right;
     padding: 0 .4rem;
-    background-color: #898989;
+    background-color: #70AE95;
     color: #fff;
     border-radius: 10px;
   }
@@ -460,6 +476,7 @@
     padding: 4px 12px;
     margin: 0 3px;
     border-bottom: 1px solid rgba(212, 211, 226, 0.05);
+    transition: border-bottom-color 0.5s;
   }
 
   .pagination {
@@ -471,5 +488,18 @@
     padding: 10px 0 10px;
     display: flex;
     justify-content: center;
+  }
+
+  .panel-not-found {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 30px;
+  }
+
+  .not-found-text {
+    color: #5e5e5e;
+    margin: 10px !important;
+    padding: 0;
+    font-size: 15px !important;
   }
 </style>

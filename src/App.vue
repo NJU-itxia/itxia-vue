@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <!--<NavBar></NavBar>-->
-    <router-view/>
+    <NavBar></NavBar>
+    <router-view />
   </div>
 </template>
 
@@ -16,11 +16,11 @@
 
 <style>
   ::selection {
-    color: #ffb1ae;
+    color: #AEA256;
   }
 
   #app {
-    display: flex;
+    /*display: flex;*/
     min-height: 100vh;
     background-color: rgba(212, 211, 226, 0.28);
   }

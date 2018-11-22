@@ -24,11 +24,10 @@
 <style scoped>
   .main-div {
     border-top: 2px dashed #c9d2cf;
-    border-bottom: 2px dashed #c9d2cf;
     padding: 2px 8px;
-    border-radius: 15px;
+    border-radius: 5px;
     margin-top: 10px;
-    background-color: rgba(218, 223, 221, 0.26);
+    background-color: rgba(203, 214, 174, 0.51);
   }
 
   .reply-title {
