@@ -41,6 +41,9 @@
               <p>
                 <strong>校区: </strong>{{ o.location }}
               </p>
+              <p v-show="o.handler !== null && o.handler.length >= 1">
+                <strong>IT侠: </strong>{{ o.handler }}
+              </p>
               <p>
                 <strong>提交时间: </strong>{{ o.time }}
               </p>
@@ -61,7 +64,7 @@
                 <strong>问题描述: </strong>{{ o.problemDescription }}
               </p>
 
-              <button type="button" class="btn btn-info btn-sm workbtn">我来处理</button>
+              <button type="button" class="btn btn-info btn-sm workbtn" v-if="o.orderStatus === '新创建'">我来处理</button>
               <button type="button" class="btn btn-default btn-sm replybtn" data-toggle="collapse"
                       :data-target="'#reply' + o.id">展开回复信息{{ o.replyList.length>0?'(' + o.replyList.length + ')':'' }}
               </button>
