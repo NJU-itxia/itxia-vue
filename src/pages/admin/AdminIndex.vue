@@ -4,7 +4,7 @@
       <div class="col-md-3">
         <div class="side-div">
           <div class="list-group">
-            <span class="list-group-item" @click="showCreated"><span class="number">5</span>
+            <span class="list-group-fitem" @click="showCreated"><span class="number">5</span>
               <p :class="textSelected[0]"><strong>等待处理</strong></p></span>
             <span class="list-group-item" @click="showAccepted"><span class="number">32</span>
               <p :class="textSelected[1]"><strong>正在处理</strong></p></span>
