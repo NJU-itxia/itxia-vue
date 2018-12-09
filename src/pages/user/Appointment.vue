@@ -10,6 +10,7 @@
           <button type="button" class="list-group-item" @click="switchToHistory">历史预约
             <span class="badge badge-secondary">23</span></button>
         </div>
+        <back-to-top></back-to-top>
       </div>
 
       <AppointmentNew v-if="newAppointment"></AppointmentNew>
@@ -22,10 +23,11 @@
 <script>
   import AppointmentNew from "./AppointmentNew";
   import AppointmentHistory from "./AppointmentHistory";
+  import BackToTop from "../nav/BackToTop";
 
   export default {
     name: "Appointment",
-    components: {AppointmentNew, AppointmentHistory},
+    components: {BackToTop, AppointmentNew, AppointmentHistory},
     data() {
       return {
         newAppointment: false
