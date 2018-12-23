@@ -52,8 +52,6 @@
 </template>
 
 <script>
-  const host = "http://118.89.144.139:3000";
-
   export default {
     name: "AdminLogin",
     data() {
@@ -70,7 +68,7 @@
           password: this.password
         };
         this.$axios.post(
-          host + '/admin/login',
+          'backend/admin/login',
           JSON.stringify(params)
         ).then((res) => {
           if (res.data.success) {

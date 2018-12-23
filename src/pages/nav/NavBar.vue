@@ -20,7 +20,7 @@
           <a type="button" class="nav-link" href="https://itxia.club/donation" target="_blank"
              v-if="!$store.getters.login">爱心捐赠</a>
         </form>
-        <a type="button" class="nav-link" v-if="showLogout" @click="logout">登出<img class="icon" src="../../../src/assets/logout.svg" /></a>
+        <a class="nav-link" v-if="showLogout" @click="logout">登出<img class="icon" src="../../../src/assets/logout.svg" /></a>
       </div>
     </nav>
   </div>

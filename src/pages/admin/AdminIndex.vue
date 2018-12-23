@@ -4,7 +4,7 @@
       <div class="col-md-3">
         <div class="side-div">
           <div class="list-group">
-            <span class="list-group-fitem" @click="showCreated"><span class="number">5</span>
+            <span class="list-group-item" @click="showCreated"><span class="number">5</span>
               <p :class="textSelected[0]"><strong>等待处理</strong></p></span>
             <span class="list-group-item" @click="showAccepted"><span class="number">32</span>
               <p :class="textSelected[1]"><strong>正在处理</strong></p></span>
@@ -24,7 +24,7 @@
       </div>
 
       <div class="col-md-8">
-        <div v-show="orders.length === 0">
+        <div v-show="orders.length === 0 && noResult">
           <div class="panel panel-warning">
             <div class="panel-not-found">
               <p class="no-found-text"><strong>非常遗憾，什么也没有搜索出来</strong></p>
@@ -64,9 +64,15 @@
                 <strong>问题描述: </strong>{{ o.problemDescription }}
               </p>
 
-              <button type="button" class="btn btn-info btn-sm workbtn" v-if="o.orderStatus === '新创建'">我来处理</button>
+              <button type="button" class="btn btn-info btn-sm workbtn" v-if="o.orderStatus === '新创建'"
+                      @click="acceptOrder(o.id)">我来处理
+              </button>
+              <button type="button" class="btn btn-info btn-sm workbtn"
+                      v-if="o.orderStatus === '已接受' && o.handler === info.name">处理完成
+              </button>
               <button type="button" class="btn btn-default btn-sm replybtn" data-toggle="collapse"
-                      :data-target="'#reply' + o.id">展开回复信息{{ o.replyList.length>0?'(' + o.replyList.length + ')':'' }}
+                      :data-target="'#reply' + o.id" @click="toggleState(o.id)" :id="o.id">展开回复信息{{
+                o.replyList.length>0?'(' + o.replyList.length + ')':'' }}
               </button>
 
               <div :id="'reply' + o.id" class="panel-collapse collapse">
@@ -115,27 +121,26 @@
 <script>
   import ReplyPane from "../../components/ReplyPane"
 
-  const host = "http://118.89.144.139:3000";
-
   export default {
     name: "AdminIndex",
     components: {ReplyPane},
     data() {
       return {
+        info: {},
         panel: ["panel", "panel-warning"],
         mutex: false,
-        location: "鼓楼",
         state: "CREATED",
         textSelected: ["text-selected", "", ""],
         orders: [],
         search: null,
+        noResult: false,
         pageNum: null,
         pageSelected: 0,
         pages: [],
       }
     },
     mounted() {
-      this.showCreated();
+      this.loadInfo();
     },
     watch: {
       search(newValue) {
@@ -145,6 +150,15 @@
       }
     },
     methods: {
+      toggleState(id) {
+        let node = document.getElementById(id);
+        let attr = node.getAttribute("aria-expanded");
+        if (!attr || attr !== 'true') {
+          node.innerText = '收起' + node.innerText.substring(2);
+        } else {
+          node.innerText = '展开' + node.innerText.substring(2);
+        }
+      },
       sleep(d) {
         return new Promise((resolve) => setTimeout(resolve, d))
       },
@@ -166,12 +180,19 @@
         this.queryAppointments();
         this.textSelected = ["", "", "text-selected"]
       },
+      acceptOrder(oid) {
+        console.log(oid);
+        this.$axios.post(
+          "backend/admin/appointment/accept/" + oid,
+          JSON.stringify({})
+        )
+      },
       queryAppointments() {
         if (this.search === "") {
           this.search = null
         }
         this.$axios.post(
-          host + "/admin/appointment/location/" + this.location + "/state/" + this.state + "/search/" + this.search + "/page/" + this.pageSelected + "/size/10",
+          "backend/admin/appointment/location/" + this.info.locationRawValue + "/state/" + this.state + "/search/" + this.search + "/page/" + this.pageSelected + "/size/10",
           JSON.stringify({})
         ).then((res) => {
           if (res.data.success) {
@@ -190,11 +211,12 @@
               this.pages = [...Array(5)].map((_, h) => h + this.pageSelected - 2);
             }
           }
+          this.noResult = true
         });
       },
       createNewReply(order) {
         this.$axios.put(
-          host + "/admin/appointment/reply/" + order.id + "/" + order.newReply
+          "backend/admin/appointment/reply/" + order.id + "/" + order.newReply
         ).then((res) => {
           if (res.status === 200) {
             if (res.data.success) {
@@ -203,6 +225,16 @@
             }
           }
           alert("似乎失败了，等下再试试吧")
+        })
+      },
+      loadInfo() {
+        this.$axios.post(
+          "backend/admin/info", JSON.stringify({})
+        ).then((res) => {
+          if (res.data.success) {
+            this.info = res.data.data;
+          }
+          this.showCreated()
         })
       },
       searchDescription() {
