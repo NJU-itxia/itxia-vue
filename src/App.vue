@@ -28,4 +28,12 @@
   .container {
     text-align: center;
   }
+
+  a {
+    color: #70AE95;
+  }
+
+  a:hover {
+    color: #70AE95;
+  }
 </style>

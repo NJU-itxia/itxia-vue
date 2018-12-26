@@ -20,7 +20,7 @@
           <a type="button" class="nav-link" href="https://itxia.club/donation" target="_blank"
              v-if="!$store.getters.login">爱心捐赠</a>
         </form>
-        <a class="nav-link" v-if="showLogout" @click="logout">登出<img class="icon" src="../../../src/assets/logout.svg" /></a>
+        <a class="nav-link" v-if="showLogout" @click="logout">登出<img class="icon" src="../../../src/assets/logout.svg"/></a>
       </div>
     </nav>
   </div>
@@ -52,14 +52,15 @@
     methods: {
       logout() {
         this.$store.commit('LOGOUT');
-        if(this.$route.path.startsWith("/itxia")) {
+        if (this.$route.path.startsWith("/itxia")) {
           this.$router.push('/itxia/login')
         }
       },
       refreshState() {
-        if (this.$route.path.startsWith("/itxia/login")) {
+        let path = this.$route.path;
+        if (path.startsWith("/itxia/login")) {
           this.showNav = false;
-        } else {
+        } else if (path.startsWith("/itxia/index")) {
           this.showNav = true;
           this.showSetting = true;
           this.showJoinUs = false;
@@ -67,6 +68,16 @@
           this.showManagement = false;
           this.showLogout = true;
           this.showText = "后台管理";
+        } else if (path.startsWith("/user/index")) {
+          this.showNav = true;
+          this.showSetting = false;
+          this.showJoinUs = true;
+          this.showDonation = true;
+          this.showManagement = false;
+          this.showLogout = true;
+          this.showText = "预约维修";
+        } else {
+          this.showNav = false;
         }
       }
     }
@@ -104,7 +115,7 @@
     width: 22px;
   }
 
-  .nav-link{
+  .nav-link {
     cursor: pointer;
   }
 

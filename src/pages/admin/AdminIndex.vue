@@ -48,13 +48,13 @@
                 <strong>提交时间: </strong>{{ o.time }}
               </p>
               <p>
-                <strong>手机号码: </strong><a href="tel:17826029500">{{ o.phone }}</a>
+                <strong>手机号码: </strong><a :href="'tel:'+o.phone">{{ o.phone }}</a>
               </p>
               <p>
                 <strong>邮箱: </strong>{{ o.email === null? "无":o.email }}
               </p>
               <p>
-                <strong>电脑型号: </strong><a target="_blank" href="http://www.baidu.com/s?word=Dell Precision T7600+拆机图">
+                <strong>电脑型号: </strong><a target="_blank" :href="'http://www.baidu.com/s?word=' + o.deviceModel + '+拆机图'">
                 {{o.deviceModel}}</a>
               </p>
               <p>
@@ -68,7 +68,7 @@
                       @click="acceptOrder(o.id)">我来处理
               </button>
               <button type="button" class="btn btn-info btn-sm workbtn"
-                      v-if="o.orderStatus === '已接受' && o.handler === info.name">处理完成
+                      v-if="o.orderStatus === '已接受' && o.handler === info.name" @click="finish(o.id)">处理完成
               </button>
               <button type="button" class="btn btn-default btn-sm replybtn" data-toggle="collapse"
                       :data-target="'#reply' + o.id" @click="toggleState(o.id)" :id="o.id">展开回复信息{{
@@ -159,6 +159,14 @@
           node.innerText = '展开' + node.innerText.substring(2);
         }
       },
+      finish(oid) {
+        this.$axios.post(
+          "backend/admin/appointment/finish/" + oid,
+          JSON.stringify({})
+        ).then(
+          this.showFinished()
+        )
+      },
       sleep(d) {
         return new Promise((resolve) => setTimeout(resolve, d))
       },
@@ -185,7 +193,7 @@
         this.$axios.post(
           "backend/admin/appointment/accept/" + oid,
           JSON.stringify({})
-        )
+        ).then(this.showAccepted())
       },
       queryAppointments() {
         if (this.search === "") {
@@ -315,7 +323,6 @@
     background-color: #70AE95;
     border: none;
     color: white;
-
   }
 
   .container {

@@ -53,6 +53,16 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 
+    proxyTable: {
+      '/backend': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/backend': '/',
+        }
+      }
+    },
+
     /**
      * Source Maps
      */

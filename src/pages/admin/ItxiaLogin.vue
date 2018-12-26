@@ -52,6 +52,8 @@
 </template>
 
 <script>
+  import TextInput from "../../components/TextInput";
+
   export default {
     name: "AdminLogin",
     data() {
@@ -81,6 +83,9 @@
       dismissAlert() {
         this.wrongAlert = false
       }
+    },
+    components: {
+      TextInput
     }
   }
 </script>
