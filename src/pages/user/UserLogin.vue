@@ -65,11 +65,13 @@
         this.time = 60;
         this.timer();
         this.isDisable = true;
-        console.log(this.phone)
-        // this.$axios.post(
-        //   "backend/customer/login/code",
-        //   JSON.stringify({phone: this.phone})
-        // )
+        let params = new URLSearchParams();
+        params.append('phone', this.phone);
+        this.$axios.post(
+          "backend/customer/login/code",
+          params,
+          {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}
+        )
       },
       timer: function () {
         if (this.time > 0) {
@@ -84,8 +86,21 @@
       startAppointment: function () {
         console.log(this.phone);
         console.log(this.code);
+        this.$axios.post(
+          "backend/customer/verify",
+          JSON.stringify({
+            phone: this.phone,
+            code: this.code
+          })
+        ).then((res) => {
+          if (res.data.success) {
+            this.$router.push('index');
+          } else {
+            alert('登陆失败');
+          }
+        });
         // this.$store.commit('LOGIN');
-        // this.$router.push('appointment');
+
       },
       updatePhone(val) {
         this.phone = val;
@@ -99,7 +114,7 @@
         message: '获取验证码',
         time: 0,
         isDisable: false,
-        phone: '2312321',
+        phone: '14718037199',
         code: '12312',
       }
     },

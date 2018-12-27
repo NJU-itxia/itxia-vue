@@ -15,11 +15,9 @@
     },
     watch: {
       text(val) {
-        console.log(";;");
         this.realText = val
       },
       realText(val) {
-        console.log(";.;");
         this.$emit("update-text", val)
       }
     },

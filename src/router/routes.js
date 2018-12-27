@@ -20,7 +20,7 @@ export default [
     component: Http,
   },
   {
-    path: '/user/appointment',
+    path: '/user/index',
     component: Appointment,
   },
   {

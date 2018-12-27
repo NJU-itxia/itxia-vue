@@ -41,7 +41,7 @@
               <p>
                 <strong>校区: </strong>{{ o.location }}
               </p>
-              <p v-show="o.handler !== null && o.handler.length >= 1">
+              <p v-show="o.handler !== null && o.handler.length >= 1 &&o.orderStatus !== '新创建'">
                 <strong>IT侠: </strong>{{ o.handler }}
               </p>
               <p>
