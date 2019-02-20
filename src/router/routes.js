@@ -1,4 +1,3 @@
-import HelloWorld from '@/pages/HelloWorld';
 import Http from '@/pages/Http';
 import UserLogin from '@/pages/user/UserLogin';
 import Appointment from '@/pages/user/Appointment';
@@ -8,12 +7,12 @@ import Lab from '@/components/Lab';
 
 export default [
   {
-    path: '/user/login',
-    component: UserLogin,
+    path: '/',
+    component: ItxiaLogin,
   },
   {
-    path: '/hello',
-    component: HelloWorld,
+    path: '/user/login',
+    component: UserLogin,
   },
   {
     path: '/http',

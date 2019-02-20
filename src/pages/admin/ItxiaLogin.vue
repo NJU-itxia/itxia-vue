@@ -19,9 +19,7 @@
             <p>账号</p>
           </div>
           <div class="col-9 my-input">
-            <label>
-              <input class="form-control" type="text" v-model="account"/>
-            </label>
+            <text-input :text="account" @update-text="updateAccount"></text-input>
           </div>
         </div>
         <div class="row">
@@ -29,13 +27,14 @@
             <p>密码</p>
           </div>
           <div class="col-9 my-input">
-            <label>
-              <input class="form-control" type="password" v-model="password" @keyup.enter="login"/>
-            </label>
+            <text-input pass='password' type="password" :text="password" @update-text="updatePassword" :up="login"></text-input>
+            <!--<label>-->
+              <!--<input class="form-control" type="password" v-model="password" @keyup.enter="login"/>-->
+            <!--</label>-->
           </div>
         </div>
         <div class="login-button">
-          <button class="btn btn-primary btn-block" @click="login">登录</button>
+          <login-button :text="`登录`" :func="login" class="login-button"></login-button>
         </div>
       </div>
       <hr/>
@@ -53,6 +52,7 @@
 
 <script>
   import TextInput from "../../components/TextInput";
+  import LoginButton from "../../components/LoginButton";
 
   export default {
     name: "AdminLogin",
@@ -70,7 +70,7 @@
           password: this.password
         };
         this.$axios.post(
-          'backend/admin/login',
+          'https://infinirotolarsi.com/admin/login',
           JSON.stringify(params)
         ).then((res) => {
           if (res.data.success) {
@@ -82,9 +82,16 @@
       },
       dismissAlert() {
         this.wrongAlert = false
+      },
+      updateAccount(val) {
+        this.account = val;
+      },
+      updatePassword(val) {
+        this.password = val;
       }
     },
     components: {
+      LoginButton,
       TextInput
     }
   }
@@ -100,6 +107,11 @@
 
   .login-button {
     margin-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .text {
@@ -119,7 +131,7 @@
   }
 
   button:focus {
-    box-shadow: 0 0 2px #0069d9;
+    box-shadow: 0 0 2px #70AE95 !important;
   }
 
   input {
@@ -133,7 +145,7 @@
   }
 
   input.form-control.bottom:focus {
-    box-shadow: 0 0 2px #0069d9;
+    box-shadow: 0 0 2px #70AE95 !important;
   }
 
   .background {

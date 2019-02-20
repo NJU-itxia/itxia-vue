@@ -1,7 +1,13 @@
 <template>
-  <label>
-    <input class="form-control" :placeholder=placeholder :value="realText" @input="$emit('update-text', $event.target.value)" type="text" />
-  </label>
+  <!--<label>-->
+    <input class="form-control"
+           :type="pass"
+           :placeholder=placeholder
+           :value="realText"
+           @input="$emit('update-text', $event.target.value)"
+           @keyup.enter=up
+           type="text" />
+  <!--</label>-->
 </template>
 
 <script>
@@ -27,6 +33,12 @@
       },
       text: {
         default: null
+      },
+      up: {
+        default: null
+      },
+      pass: {
+        default: null
       }
     },
   }
@@ -37,6 +49,8 @@
     border-top-width: 0;
     border-left-width: 0;
     border-right-width: 0;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   input.form-control:focus {

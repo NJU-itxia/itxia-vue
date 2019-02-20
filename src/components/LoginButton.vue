@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <!--<div>-->
     <button class="btn btn-primary btn-block" @click="func" :disabled="disabled">{{ text }}</button>
-  </div>
+  <!--</div>-->
 </template>
 
 <script>
   export default {
-    name: "BasicButton",
+    name: "LoginButton",
     props: ['text', 'func', 'disabled']
   }
 </script>
@@ -23,9 +23,6 @@
   }
 
   button {
-    margin-left: 20px;
-    width: auto;
-    min-width: 130px;
     background-color: #70AE95;
     border-color: transparent;
     color: white;
@@ -41,9 +38,4 @@
     border-color: transparent;
   }
 
-  @media (max-width: 768px) {
-    button {
-      margin-left: 0;
-    }
-  }
 </style>

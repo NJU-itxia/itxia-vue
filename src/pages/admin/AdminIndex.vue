@@ -54,7 +54,8 @@
                 <strong>邮箱: </strong>{{ o.email === null? "无":o.email }}
               </p>
               <p>
-                <strong>电脑型号: </strong><a target="_blank" :href="'http://www.baidu.com/s?word=' + o.deviceModel + '+拆机图'">
+                <strong>电脑型号: </strong><a target="_blank"
+                                          :href="'http://www.baidu.com/s?word=' + o.deviceModel + '+拆机图'">
                 {{o.deviceModel}}</a>
               </p>
               <p>
@@ -120,6 +121,7 @@
 
 <script>
   import ReplyPane from "../../components/ReplyPane"
+  import {GET_URL} from "../../utils/value-consts";
 
   export default {
     name: "AdminIndex",
@@ -161,7 +163,7 @@
       },
       finish(oid) {
         this.$axios.post(
-          "backend/admin/appointment/finish/" + oid,
+          GET_URL(`/admin/appointment/finish/${oid}`),
           JSON.stringify({})
         ).then(
           this.showFinished()
@@ -191,7 +193,7 @@
       acceptOrder(oid) {
         console.log(oid);
         this.$axios.post(
-          "backend/admin/appointment/accept/" + oid,
+          GET_URL(`/admin/appointment/accept/${oid}`),
           JSON.stringify({})
         ).then(this.showAccepted())
       },
@@ -200,7 +202,7 @@
           this.search = null
         }
         this.$axios.post(
-          "backend/admin/appointment/location/" + this.info.locationRawValue + "/state/" + this.state + "/search/" + this.search + "/page/" + this.pageSelected + "/size/10",
+          GET_URL(`/admin/appointment/location/${this.info.locationRawValue}/state/${this.state}/search/${this.search}/page/${this.pageSelected}/size/10`),
           JSON.stringify({})
         ).then((res) => {
           if (res.data.success) {
@@ -224,7 +226,7 @@
       },
       createNewReply(order) {
         this.$axios.put(
-          "backend/admin/appointment/reply/" + order.id + "/" + order.newReply
+          GET_URL(`/admin/appointment/reply/${order.id}/${order.newReply}`),
         ).then((res) => {
           if (res.status === 200) {
             if (res.data.success) {
@@ -237,7 +239,8 @@
       },
       loadInfo() {
         this.$axios.post(
-          "backend/admin/info", JSON.stringify({})
+          GET_URL(`/admin/info`),
+          JSON.stringify({})
         ).then((res) => {
           if (res.data.success) {
             this.info = res.data.data;
@@ -403,6 +406,7 @@
     color: #70AE95;
     border: 1px solid #70AE95;
     border-radius: 10px;
+    user-select: none;
   }
 
   .panel-heading {
@@ -485,6 +489,7 @@
     background-color: #70AE95;
     color: #fff;
     border-radius: 10px;
+    user-select: none;
   }
 
   .search-input {

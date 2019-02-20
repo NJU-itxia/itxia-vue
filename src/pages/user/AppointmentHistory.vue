@@ -3,7 +3,7 @@
     <div v-for="o in appointments">
       <div class="panel panel-warning">
         <div class="panel-heading">
-          <p>{{o.customer}}</p>
+          <p>{{o.orderStatus}}</p>
           <hr/>
         </div>
         <div class="panel-body">
@@ -78,7 +78,7 @@
     methods: {
       queryAppointments() {
         this.$axios.post(
-          "backend/customer/appointment/all",
+          "https://infinirotolarsi.com/customer/appointment/all",
           JSON.stringify({})
         ).then((res) => {
           if (res.data.success) {

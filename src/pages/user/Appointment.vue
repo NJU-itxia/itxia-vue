@@ -29,6 +29,7 @@
   import AppointmentNew from "./AppointmentNew";
   import AppointmentHistory from "./AppointmentHistory";
   import BackToTop from "../nav/BackToTop";
+  import {GET_URL} from "../../utils/value-consts";
 
   export default {
     name: "Appointment",
@@ -51,7 +52,7 @@
       },
       getAppointmentNum() {
         this.$axios.post(
-          "backend/customer/appointment/num",
+          GET_URL(`/customer/appointment/num`),
           JSON.stringify({})
         ).then((res) => {
           if (res.data.success) {
@@ -149,6 +150,7 @@
     background-color: #70AE95;
     color: #fff;
     border-radius: 10px;
+    user-select: none;
   }
 
 </style>

@@ -13,6 +13,7 @@ module.exports = {
     proxyTable: {
       '/backend': {
         target: 'http://localhost:3000',
+        // target: 'http://118.89.144.139:9000',
         changeOrigin: true,
         pathRewrite: {
           '^/backend': '/',
@@ -51,7 +52,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     proxyTable: {
       '/backend': {

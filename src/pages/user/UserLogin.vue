@@ -18,13 +18,19 @@
           <hr-bar></hr-bar>
           <div>
             <div class="input-group mb-3 my-form">
-              <text-input placeholder="请输入手机号" :text="phone" @update-text="updatePhone"></text-input>
-              <basic-button :text="message" :func="sendCode" :disabled="isDisable"></basic-button>
+              <label>
+                <text-input placeholder="请输入手机号" :text="phone" @update-text="updatePhone"></text-input>
+              </label>
+              <div class="btn-div">
+                <basic-button class="my-button" :text="message" :func="sendCode" :disabled="isDisable"></basic-button>
+              </div>
               <!--<button class="btn btn-primary btn-sm my-button" @click="sendCode" :disabled="isDisable">{{ message }}</button>-->
             </div>
             <div class="input-group mb-3 my-form">
-              <text-input placeholder="请输入验证码" :text="code" @update-text="updateCode"></text-input>
-              <basic-button text="开始预约" :func="startAppointment"></basic-button>
+              <label>
+                <text-input placeholder="请输入验证码" :text="code" @update-text="updateCode"></text-input>
+              </label>
+              <basic-button class="my-button" text="开始预约" :func="startAppointment"></basic-button>
               <!--<button class="btn btn-primary my-button" @click="startAppointment">开始预约</button>-->
             </div>
           </div>
@@ -38,14 +44,15 @@
           </div>
           <hr-bar></hr-bar>
           <div>
-            <ul class="my-text">
-              <li style="color: #57a94e">【12-25】圣诞快乐！有人来P个圣诞帽吗！</li>
-              <li style="color: darkgoldenrod">【12-25】虽然这里没有礼物，但是大家还是要开心鸭</li>
-              <li style="color: #57a94e;">
-                【12-24】【置底】童鞋们，期末考试周马上就要到来了，侠客们也进入忙碌的复习，所以，仙林IT侠从今日起<strong>暂停接单</strong>，
+            <div class="my-text">
+              <p style="color: darkgoldenrod">-【01-01】好8，现在是新年快乐了</p>
+              <p style="color: #57a94e">-【12-25】圣诞快乐！有人来P个圣诞帽吗！</p>
+              <p style="color: darkgoldenrod">-【12-25】虽然这里没有礼物，但是大家还是要开心鸭</p>
+              <p style="color: #57a94e;">
+                -【12-24】【置底】童鞋们，期末考试周马上就要到来了，侠客们也进入忙碌的复习，所以，仙林IT侠从今日起<strong>暂停接单</strong>，
                 鼓楼接单<strong>速度减慢</strong>。说到接单，就想到预约维修。明年开学，仙林鼓楼合作的IT侠预约维修即将正式重启，我们将继续做好IT侠公益服务，用IT侠的形象努力创造一个让大家满意的公益组织，文体两开花，弘扬IT文化，希望大家多多关注。
-              </li>
-            </ul>
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -57,6 +64,7 @@
   import TextInput from "../../components/TextInput";
   import BasicButton from "../../components/BasicButton";
   import HrBar from "../../components/HrBar";
+  import {GET_URL} from "../../utils/value-consts";
 
   export default {
     name: "UserLogin",
@@ -68,7 +76,7 @@
         let params = new URLSearchParams();
         params.append('phone', this.phone);
         this.$axios.post(
-          "backend/customer/login/code",
+          GET_URL(`/customer/login/code`),
           params,
           {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}
         )
@@ -87,7 +95,7 @@
         console.log(this.phone);
         console.log(this.code);
         this.$axios.post(
-          "backend/customer/verify",
+          GET_URL(`/customer/verify`),
           JSON.stringify({
             phone: this.phone,
             code: this.code
@@ -99,8 +107,6 @@
             alert('登陆失败');
           }
         });
-        // this.$store.commit('LOGIN');
-
       },
       updatePhone(val) {
         this.phone = val;
@@ -114,8 +120,8 @@
         message: '获取验证码',
         time: 0,
         isDisable: false,
-        phone: '14718037199',
-        code: '12312',
+        phone: null,
+        code: null,
       }
     },
     components: {
@@ -141,9 +147,6 @@
     margin-bottom: 20px;
   }
 
-  .my-text {
-    color: #5e5e5e;
-  }
 
   .logo {
     width: 200px;
@@ -155,12 +158,6 @@
     justify-content: center;
   }
 
-  .my-button {
-    margin-left: 20px;
-    width: auto;
-    min-width: 130px;
-  }
-
   .my-input {
     max-width: 200px;
     border-top-right-radius: 0.25em !important;
@@ -168,9 +165,18 @@
   }
 
   .my-text {
+    color: #5e5e5e;
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: left;
+  }
+
+
+  .my-text p {
+    text-indent: -1rem;
+    margin-left: 1rem;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
   .my-container {
@@ -194,6 +200,10 @@
 
   li {
     margin-bottom: 3px;
+  }
+
+  .btn-div {
+    display: flex;
   }
 
 </style>

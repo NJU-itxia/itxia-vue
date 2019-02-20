@@ -14,11 +14,12 @@
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <form class="form-inline my-2 my-lg-0" v-if="showJoinUs">
-          <a type="button" class="nav-link" href="https://itxia.club/recruiment" target="_blank" id="join-us">加入我们</a>
+          <a class="nav-link" href="https://itxia.club/recruiment" target="_blank">加入我们
+            <img class="icon" src="../../../src/assets/home.svg"/></a>
         </form>
         <form class="form-inline my-2 my-lg-0" v-if="showDonation">
-          <a type="button" class="nav-link" href="https://itxia.club/donation" target="_blank"
-             v-if="!$store.getters.login">爱心捐赠</a>
+          <a class="nav-link" href="https://itxia.club/donation" target="_blank"
+             v-if="!$store.getters.login">爱心捐赠<img class="icon" src="../../../src/assets/love.svg"/></a>
         </form>
         <a class="nav-link" v-if="showLogout" @click="logout">登出<img class="icon" src="../../../src/assets/logout.svg"/></a>
       </div>
@@ -100,9 +101,9 @@
     color: #ffffff !important;
   }
 
-  #join-us {
-    margin-right: 20px;
-  }
+  /*#join-us {*/
+  /*margin-right: 20px;*/
+  /*}*/
 
   @media (min-width: 992px) {
     #brand {
@@ -113,10 +114,13 @@
 
   .icon {
     width: 22px;
+    margin-top: -3px;
   }
 
   .nav-link {
     cursor: pointer;
+    /*padding-right: 10px;*/
+    padding-left: 10px;
   }
 
   .navbar-toggler {
