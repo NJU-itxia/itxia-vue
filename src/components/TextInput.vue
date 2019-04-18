@@ -1,5 +1,4 @@
 <template>
-  <!--<label>-->
     <input class="form-control"
            :type="pass"
            :placeholder=placeholder
@@ -7,7 +6,6 @@
            @input="$emit('update-text', $event.target.value)"
            @keyup.enter=up
            type="text" />
-  <!--</label>-->
 </template>
 
 <script>

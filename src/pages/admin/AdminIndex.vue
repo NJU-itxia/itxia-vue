@@ -4,11 +4,11 @@
       <div class="col-md-3">
         <div class="side-div">
           <div class="list-group">
-            <span class="list-group-item" @click="showCreated"><span class="number">5</span>
+            <span class="list-group-item" @click="showCreated"><span class="number">{{ numsNewAppointment }}</span>
               <p :class="textSelected[0]"><strong>等待处理</strong></p></span>
-            <span class="list-group-item" @click="showAccepted"><span class="number">32</span>
+            <span class="list-group-item" @click="showAccepted"><span class="number">{{ numsHandlingAppointment }}</span>
               <p :class="textSelected[1]"><strong>正在处理</strong></p></span>
-            <span class="list-group-item" @click="showFinished"><span class="number">2568</span>
+            <span class="list-group-item" @click="showFinished"><span class="number">{{ numsFinishedAppointment }}</span>
               <p :class="textSelected[2]"><strong>处理完成</strong></p></span>
           </div>
 
@@ -55,18 +55,22 @@
               </p>
               <p>
                 <strong>电脑型号: </strong><a target="_blank"
-                                          :href="'http://www.baidu.com/s?word=' + o.deviceModel + '+拆机图'">
+                                          :href="`http://www.baidu.com/s?word=${o.deviceModel}+拆机-baijiahao`">
                 {{o.deviceModel}}</a>
               </p>
               <p>
                 <strong>操作系统: </strong>{{o.osVersion}}
               </p>
-              <p>
-                <strong>问题描述: </strong>{{ o.problemDescription }}
-              </p>
+              <div>
+                <strong>问题描述: </strong><p v-html="o.problemDescription"></p>
+              </div>
 
               <button type="button" class="btn btn-info btn-sm workbtn" v-if="o.orderStatus === '新创建'"
                       @click="acceptOrder(o.id)">我来处理
+              </button>
+              <button type="button" class="btn btn-info btn-sm workbtn"
+                      v-if="o.orderStatus === '已接受' && o.handler === info.name"
+                      @click="putBackOrder(o.id)">放回等待处理
               </button>
               <button type="button" class="btn btn-info btn-sm workbtn"
                       v-if="o.orderStatus === '已接受' && o.handler === info.name" @click="finish(o.id)">处理完成
@@ -139,6 +143,9 @@
         pageNum: null,
         pageSelected: 0,
         pages: [],
+        numsNewAppointment: 0,
+        numsHandlingAppointment: 0,
+        numsFinishedAppointment: 0,
       }
     },
     mounted() {
@@ -147,11 +154,16 @@
     watch: {
       search(newValue) {
         if (newValue === "") {
+          this.queryNumbers();
           this.queryAppointments();
         }
       }
     },
     methods: {
+      formatDescription(text) {
+        // return `${text}`
+        return text.replace(/<br \/>/g, "").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+      },
       toggleState(id) {
         let node = document.getElementById(id);
         let attr = node.getAttribute("aria-expanded");
@@ -191,13 +203,34 @@
         this.textSelected = ["", "", "text-selected"]
       },
       acceptOrder(oid) {
-        console.log(oid);
         this.$axios.post(
           GET_URL(`/admin/appointment/accept/${oid}`),
           JSON.stringify({})
         ).then(this.showAccepted())
       },
+      putBackOrder(oid) {
+        this.$axios.post(
+          GET_URL(`/admin/appointment/cancel/${oid}`),
+          JSON.stringify({})
+        ).then(this.showCreated())
+      },
+      queryNumbers() {
+        if (this.search === "") {
+          this.search = null
+        }
+        this.$axios.post(
+          GET_URL(`/admin/appointment/location/${this.info.locationRawValue}/search/${this.search}`),
+          JSON.stringify({})
+        ).then((res) => {
+          if(res.data.success) {
+            this.numsNewAppointment = res.data.data["新创建"];
+            this.numsHandlingAppointment = res.data.data["已接受"];
+            this.numsFinishedAppointment = res.data.data["已解决"];
+          }
+        });
+      },
       queryAppointments() {
+        this.queryNumbers();
         if (this.search === "") {
           this.search = null
         }

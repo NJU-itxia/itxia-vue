@@ -1,52 +1,52 @@
 <template>
-  <div class="container background">
-    <div class="container my-card">
-      <div class="text-left">
-        <h1>登录<span class="subtitle">IT侠后台管理</span></h1>
-      </div>
-      <hr/>
-      <div class="alert alert-info" v-show="wrongAlert">
-        <button type="button" class="close" aria-hidden="true" @click="dismissAlert">×</button>
-        <strong>用户名或密码错误，请重试</strong>
-      </div>
-      <div>
-        <img class="logo" src="../../assets/logo.jpg" alt="Card image cap"/>
-      </div>
-      <div id="login-input">
-        <div class="row">
-          <div class="col-3 text">
-            <span class="glyphicon"></span>
-            <p>账号</p>
+  <div id="wrapper">
+    <div class="container background">
+      <div class="container my-card">
+        <div class="text-left">
+          <h1>登录<span class="subtitle">IT侠后台管理</span></h1>
+        </div>
+        <hr/>
+        <div class="alert alert-info" v-show="wrongAlert">
+          <button type="button" class="close" aria-hidden="true" @click="dismissAlert">×</button>
+          <strong>用户名或密码错误，请重试</strong>
+        </div>
+        <div>
+          <img class="logo" src="../../assets/logo.jpg" alt="Card image cap"/>
+        </div>
+        <div id="login-input">
+          <div class="row">
+            <div class="col-3 text">
+              <span class="glyphicon"></span>
+              <p>账号</p>
+            </div>
+            <div class="col-9 my-input">
+              <text-input :text="account" @update-text="updateAccount"></text-input>
+            </div>
           </div>
-          <div class="col-9 my-input">
-            <text-input :text="account" @update-text="updateAccount"></text-input>
+          <div class="row">
+            <div class="col-3 text">
+              <p>密码</p>
+            </div>
+            <div class="col-9 my-input">
+              <text-input pass='password' type="password" :text="password" @update-text="updatePassword"
+                          :up="login"></text-input>
+            </div>
+          </div>
+          <div class="login-button">
+            <login-button :text="`登录`" :func="login" class="login-button"></login-button>
           </div>
         </div>
-        <div class="row">
-          <div class="col-3 text">
-            <p>密码</p>
-          </div>
-          <div class="col-9 my-input">
-            <text-input pass='password' type="password" :text="password" @update-text="updatePassword" :up="login"></text-input>
-            <!--<label>-->
-              <!--<input class="form-control" type="password" v-model="password" @keyup.enter="login"/>-->
-            <!--</label>-->
-          </div>
-        </div>
-        <div class="login-button">
-          <login-button :text="`登录`" :func="login" class="login-button"></login-button>
+        <hr/>
+        <div class="container footer">
+          <p>Power by&nbsp;
+            <a href="https://github.com/NJU-itxia" target="_blank">IT侠Web组</a>
+            &nbsp;
+            <a href="https://itxia.club/" target="_blank">南京大学IT侠公益协会</a>.
+          </p>
         </div>
       </div>
-      <hr/>
-      <div class="container footer">
-        <p>Power by&nbsp;
-          <a href="https://github.com/NJU-itxia" target="_blank">IT侠Web组</a>
-          &nbsp;
-          <a href="https://itxia.club/" target="_blank">南京大学IT侠公益协会</a>.
-        </p>
-      </div>
-    </div>
 
+    </div>
   </div>
 </template>
 
@@ -221,5 +221,12 @@
     margin-left: 10px;
     font-size: 0.5em !important;
     color: #6f6f6f;
+  }
+
+  #wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 </style>

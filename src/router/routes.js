@@ -4,6 +4,8 @@ import Appointment from '@/pages/user/Appointment';
 import ItxiaLogin from '@/pages/admin/ItxiaLogin';
 import AdminIndex from '@/pages/admin/AdminIndex';
 import Lab from '@/components/Lab';
+import PreferenceSettings from '@/pages/admin/PreferenceSettings';
+import MemberManagement from '@/pages/admin/MemberManagement';
 
 export default [
   {
@@ -29,6 +31,14 @@ export default [
   {
     path: '/itxia/index',
     component: AdminIndex,
+  },
+  {
+    path: '/itxia/manage',
+    component: MemberManagement,
+  },
+  {
+    path: '/itxia/settings',
+    component: PreferenceSettings,
   },
   {
     path: '/egg/lab',

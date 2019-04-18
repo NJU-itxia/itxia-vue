@@ -20,7 +20,9 @@
   }
 
   #app {
-    /*display: flex;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
     min-height: 100vh;
     background-color: rgba(212, 211, 226, 0.28);
   }

@@ -24,14 +24,12 @@
               <div class="btn-div">
                 <basic-button class="my-button" :text="message" :func="sendCode" :disabled="isDisable"></basic-button>
               </div>
-              <!--<button class="btn btn-primary btn-sm my-button" @click="sendCode" :disabled="isDisable">{{ message }}</button>-->
             </div>
             <div class="input-group mb-3 my-form">
               <label>
                 <text-input placeholder="请输入验证码" :text="code" @update-text="updateCode"></text-input>
               </label>
               <basic-button class="my-button" text="开始预约" :func="startAppointment"></basic-button>
-              <!--<button class="btn btn-primary my-button" @click="startAppointment">开始预约</button>-->
             </div>
           </div>
         </div>
