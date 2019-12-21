@@ -60,7 +60,8 @@
 </template>
 
 <script>
-  import ReplyPane from '../../components/ReplyPane'
+  import ReplyPane from '../../components/ReplyPane';
+  import {GET_URL} from "../../utils/value-consts";
 
   export default {
     name: "AppointmentHistory",
@@ -78,7 +79,7 @@
     methods: {
       queryAppointments() {
         this.$axios.post(
-          "https://infinirotolarsi.com/customer/appointment/all",
+          GET_URL("/customer/appointment/all"),
           JSON.stringify({})
         ).then((res) => {
           if (res.data.success) {

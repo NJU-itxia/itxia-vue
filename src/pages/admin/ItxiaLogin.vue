@@ -53,6 +53,7 @@
 <script>
   import TextInput from "../../components/TextInput";
   import LoginButton from "../../components/LoginButton";
+  import {GET_URL} from "../../utils/value-consts";
 
   export default {
     name: "AdminLogin",
@@ -70,7 +71,7 @@
           password: this.password
         };
         this.$axios.post(
-          'https://infinirotolarsi.com/admin/login',
+          GET_URL('/admin/login'),
           JSON.stringify(params)
         ).then((res) => {
           if (res.data.success) {
